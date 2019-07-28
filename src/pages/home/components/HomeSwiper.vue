@@ -1,7 +1,7 @@
 <template>
   <div class="swiper">
     <swiper :options="swiperOption">
-      <swiper-slide v-for="item in swiperSlides" :key="item.id">
+      <swiper-slide v-for="item in swiperList" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -14,26 +14,16 @@ export default {
   name: 'HomeSwiper',
   data () {
     return {
+      // swiper配置项
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
         },
         loop: true
-      },
-      swiperSlides: [
-        {
-          id: '0001',
-          imgUrl:
-            'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20197/0645bd625b46216a55e3835d0f677ce2.jpg_750x200_1e9a0cbf.jpg'
-        },
-        {
-          id: '0002',
-          imgUrl:
-            'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20197/ae8987bff39ff10e82675a3643154e66.jpg_750x200_0f187b2e.jpg'
-        }
-      ]
+      }
     }
-  }
+  },
+  props: ['swiperList']
 }
 </script>
 
@@ -48,7 +38,7 @@ export default {
   overflow: hidden;
   height: 0;
   width: 100%;
-  padding-bottom: 26.5%;
+  padding-bottom: 31.25%;
   background-color: #eee;
 
   .swiper-img {

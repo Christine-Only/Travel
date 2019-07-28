@@ -1,7 +1,7 @@
 <template>
   <div class="weekend">
     <div class="title">周末去哪儿</div>
-    <div class="items" v-for="item in recomendList" :key="item.id">
+    <div class="items" v-for="item in weekendList" :key="item.id">
       <img :src="item.imgUrl" />
       <div class="item">
         <p class="item-title one-cut">{{item.title}}</p>
@@ -15,25 +15,9 @@
 export default {
   name: 'HomeRecomend',
   data () {
-    return {
-      recomendList: [
-        {
-          id: 1,
-          imgUrl:
-            'http://img1.qunarzz.com/sight/source/1505/7d/df6ff468331c43.jpg_r_640x214_1f3783d0.jpg',
-          title: '上海迪士尼乐园',
-          desc: '浪漫大连首战嘻嘻嘻'
-        },
-        {
-          id: 2,
-          imgUrl:
-            'http://img1.qunarzz.com/sight/source/1505/7d/df6ff468331c43.jpg_r_640x214_1f3783d0.jpg',
-          title: '上海迪士尼乐园',
-          desc: '浪漫大连首战嘻嘻嘻'
-        }
-      ]
-    }
-  }
+    return {}
+  },
+  props: ['weekendList']
 }
 </script>
 

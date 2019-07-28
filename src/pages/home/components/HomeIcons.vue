@@ -13,71 +13,18 @@
 
 <script>
 export default {
+  props: ['iconList'],
   data () {
     return {
-      iconsList: [
-        {
-          id: 1,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-          desc: '景点门票'
-        },
-        {
-          id: 2,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/3e/86314b2af03b7502.png',
-          desc: '水上乐园'
-        },
-        {
-          id: 3,
-          imgUrl:
-            'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20194/3ef092d0a89ffddb7f781cda30c8ae49.png',
-          desc: '暑期大促'
-        },
-        {
-          id: 4,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/f5/c4c9d9830404e602.png',
-          desc: '室内娱乐'
-        },
-        {
-          id: 5,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-          desc: '景点门票'
-        },
-        {
-          id: 6,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/3e/86314b2af03b7502.png',
-          desc: '水上乐园'
-        },
-        {
-          id: 7,
-          imgUrl:
-            'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20194/3ef092d0a89ffddb7f781cda30c8ae49.png',
-          desc: '暑期大促'
-        },
-        {
-          id: 8,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/f5/c4c9d9830404e602.png',
-          desc: '室内娱乐'
-        },
-        {
-          id: 9,
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/f5/c4c9d9830404e602.png',
-          desc: '室内娱乐'
-        }
-      ]
+      list: []
     }
   },
   computed: {
     pages () {
       // 多页优化,一页只能放8个
+      // console.log(this.iconList)
       const pages = []
-      this.iconsList.forEach((item, index) => {
+      this.list.map((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -85,6 +32,11 @@ export default {
         pages[page].push(item)
       })
       return pages
+    }
+  },
+  watch: {
+    iconList (val) {
+      this.list = val
     }
   }
 }
