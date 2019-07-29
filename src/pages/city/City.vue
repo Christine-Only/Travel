@@ -2,8 +2,8 @@
   <div class="city">
     <city-header></city-header>
     <city-search></city-search>
-    <city-list></city-list>
-    <city-alphabet></city-alphabet>
+    <city-list :cities="cities" :hotCities="hotCities"></city-list>
+    <city-alphabet :cities="cities"></city-alphabet>
   </div>
 </template>
 
@@ -19,6 +19,29 @@ export default {
     CitySearch,
     CityList,
     CityAlphabet
+  },
+  data () {
+    return {
+      cities: {},
+      hotCities: []
+    }
+  },
+  created () {
+    this.getCityList()
+  },
+  methods: {
+    async getCityList () {
+      const res = await this.axios.get('/api/city.json')
+      console.log(res)
+      const {
+        status,
+        data: { ret, data }
+      } = res
+      if (status === 200 && ret) {
+        this.cities = data.cities
+        this.hotCities = data.hotCities
+      }
+    }
   }
 }
 </script>
