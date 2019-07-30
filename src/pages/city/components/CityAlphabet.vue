@@ -21,7 +21,9 @@ export default {
   data () {
     return {
       activeLetter: '',
-      flag: false
+      flag: false,
+      startY: 0,
+      timerId: null
     }
   },
   computed: {
@@ -33,6 +35,9 @@ export default {
       return letters
     }
   },
+  updated () {
+    this.startY = this.$refs['A'][0].offsetTop
+  },
   methods: {
     handleLetter (e) {
       // console.log(e)
@@ -43,18 +48,22 @@ export default {
       this.flag = true
     },
     handleMove (e) {
+      // 函数节流 提升网页性能
+      if (this.timerId) clearTimeout(this.timerId)
+
       if (this.flag) {
-        const startY = this.$refs['A'][0].offsetTop
-        // console.log(startY)
-        const endY = e.touches[0].pageY - 79
-        // console.log(endY)
-        const index = Math.floor(
-          (endY - startY) / this.$refs['A'][0].offsetHeight
-        )
-        // 获取到当前元素的offsetTop
-        if (index >= 0 && index < this.letters.length) {
-          this.bus.$emit('change', this.letters[index])
-        }
+        this.timerId = setTimeout(() => {
+          const endY = e.touches[0].pageY - 79
+          // console.log(endY)
+          const index = Math.floor(
+            (endY - this.startY) / this.$refs['A'][0].offsetHeight
+          )
+          // 获取到当前元素的offsetTop
+          console.log(index)
+          if (index >= 0 && index < this.letters.length) {
+            this.bus.$emit('change', this.letters[index])
+          }
+        }, 16)
       }
     },
     handleEnd () {
