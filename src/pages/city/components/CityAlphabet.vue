@@ -87,7 +87,7 @@ export default {
   justify-content: center;
 
   .item {
-    line-height: 0.4rem;
+    line-height: 0.34rem;
     text-align: center;
     color: $bgColor;
   }

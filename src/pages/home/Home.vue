@@ -28,15 +28,18 @@ export default {
       swiperList: [],
       iconList: [],
       recommendList: [],
-      weekendList: []
+      weekendList: [],
+      lastCity: ''
     }
   },
-  created () {
-    this.getList()
+  computed: {
+    city () {
+      return this.$store.state.city
+    }
   },
   methods: {
     async getList () {
-      const res = await this.axios.get('/api/index.json')
+      const res = await this.axios.get(`/api/index.json?city=${this.city}`)
       const {
         status,
         data: { data }
@@ -47,6 +50,17 @@ export default {
         this.weekendList = data.weekendList
         this.recommendList = data.recommendList
       }
+    }
+  },
+  created () {
+    this.getList()
+    this.lastCity = this.city
+    // console.log(this.lastCity)
+  },
+  activated () {
+    if (this.lastCity !== this.city) {
+      this.lastCity = this.city
+      this.getList()
     }
   }
 }
