@@ -11,9 +11,15 @@ import 'styles/border.css'
 import 'styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
 
+// 创建bus事件总线
+const bus = new Vue()
+
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.axios = axios
+
+// 将bus总线绑定到vue组件的原型上
+Vue.prototype.bus = bus
 
 /* eslint-disable no-new */
 new Vue({

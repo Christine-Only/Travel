@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="area" v-for="(city,name,index) in cities" :key="index">
-        <div class="title border-topbottom">{{name}}</div>
+        <div class="title border-topbottom" ref="letter">{{name}}</div>
         <div class="item-list">
           <div class="item border-bottom" v-for="cname in city" :key="cname.id">{{cname.name}}</div>
         </div>
@@ -32,8 +32,24 @@ import BScroll from 'better-scroll'
 export default {
   name: 'CityList',
   props: ['cities', 'hotCities'],
+  data () {
+    return {
+      letter: ''
+    }
+  },
   mounted () {
+    // 把scroll这个对象挂载到当前组件上,只有在mounted阶段才能操作dom
     this.scroll = new BScroll(this.$refs.wrapper)
+  },
+  created (letter) {
+    this.bus.$on('change', letter => {
+      this.letter = letter
+      // console.log(this.letter)
+      // 通过ref找到符合条件的那一项
+      let element = this.$refs.letter.find(v => v.innerText === letter)
+      // console.log(this.scroll)
+      this.scroll.scrollToElement(element)
+    })
   }
 }
 </script>
