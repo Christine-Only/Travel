@@ -1,15 +1,10 @@
 <template>
   <div class="home">
-    <!-- <home-header :city="city"></home-header>
+    <home-header></home-header>
     <home-swiper :swiperList="swiperList"></home-swiper>
     <home-icons :iconList="iconList"></home-icons>
     <home-recomend :recommendList="recommendList"></home-recomend>
-    <home-weekend :weekendList="weekendList"></home-weekend>-->
-    <home-header :city="list.city"></home-header>
-    <home-swiper :swiperList="list.swiperList"></home-swiper>
-    <home-icons :iconList="list.iconList"></home-icons>
-    <home-recomend :recommendList="list.recommendList"></home-recomend>
-    <home-weekend :weekendList="list.weekendList"></home-weekend>
+    <home-weekend :weekendList="weekendList"></home-weekend>
   </div>
 </template>
 
@@ -30,12 +25,10 @@ export default {
   },
   data () {
     return {
-      // city: '',
-      // swiperList: [],
-      // iconList: [],
-      // recommendList: [],
-      // weekendList: []
-      list: {}
+      swiperList: [],
+      iconList: [],
+      recommendList: [],
+      weekendList: []
     }
   },
   created () {
@@ -49,12 +42,10 @@ export default {
         data: { data }
       } = res
       if (status === 200) {
-        // this.city = data.city
-        // this.swiperList = data.swiperList
-        // this.iconList = data.iconList
-        // this.weekendList = data.weekendList
-        // this.recommendList = data.recommendList
-        this.list = data
+        this.swiperList = data.swiperList
+        this.iconList = data.iconList
+        this.weekendList = data.weekendList
+        this.recommendList = data.recommendList
       }
     }
   }

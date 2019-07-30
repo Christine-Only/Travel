@@ -5,7 +5,12 @@
     </div>
     <div class="search-content" ref="search" v-show="keyWord">
       <ul>
-        <li v-for="item in list" :key="item.id" class="search-item border-bottom">{{item.name}}</li>
+        <li
+          v-for="item in list"
+          :key="item.id"
+          class="search-item border-bottom"
+          @click="handleCity(item.name)"
+        >{{item.name}}</li>
         <li v-show="hasData" class="search-item border-bottom">暂无数据~</li>
       </ul>
     </div>
@@ -51,11 +56,22 @@ export default {
       }, 100)
     }
   },
+  methods: {
+    handleCity (city) {
+      // 点击某个城市,页面跳转到城市首页
+      this.$store.dispatch('changeCity', city)
+      this.$router.push('/')
+    }
+  },
   mounted () {
     // 页面元素挂载完,再操作dom
     // 获取dom元素
     // console.log(this.$refs.search)
-    this.scroll = new BScroll(this.$refs.search)
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.search, {
+        click: true
+      })
+    })
   }
 }
 </script>
