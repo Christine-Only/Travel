@@ -1,7 +1,7 @@
 <template>
   <div class="city">
     <city-header></city-header>
-    <city-search></city-search>
+    <city-search :cities="cities"></city-search>
     <city-list :cities="cities" :hotCities="hotCities"></city-list>
     <city-alphabet :cities="cities"></city-alphabet>
   </div>
@@ -32,7 +32,6 @@ export default {
   methods: {
     async getCityList () {
       const res = await this.axios.get('/api/city.json')
-      console.log(res)
       const {
         status,
         data: { ret, data }

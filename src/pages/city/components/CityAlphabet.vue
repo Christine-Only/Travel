@@ -59,7 +59,7 @@ export default {
             (endY - this.startY) / this.$refs['A'][0].offsetHeight
           )
           // 获取到当前元素的offsetTop
-          console.log(index)
+          // console.log(index)
           if (index >= 0 && index < this.letters.length) {
             this.bus.$emit('change', this.letters[index])
           }
