@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button">{{city}}</div>
           </div>
         </div>
       </div>
@@ -13,14 +13,19 @@
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
           <div class="button-wrapper" v-for="item in hotCities" :key="item.id">
-            <div class="button">{{item.name}}</div>
+            <div class="button" @click="handleCity(item.name)">{{item.name}}</div>
           </div>
         </div>
       </div>
       <div class="area" v-for="(city,name,index) in cities" :key="index">
         <div class="title border-topbottom" ref="letter">{{name}}</div>
         <div class="item-list">
-          <div class="item border-bottom" v-for="cname in city" :key="cname.id">{{cname.name}}</div>
+          <div
+            class="item border-bottom"
+            v-for="cname in city"
+            :key="cname.id"
+            @click="handleCity(cname.name)"
+          >{{cname.name}}</div>
         </div>
       </div>
     </div>
@@ -37,10 +42,6 @@ export default {
       letter: ''
     }
   },
-  mounted () {
-    // 把scroll这个对象挂载到当前组件上,只有在mounted阶段才能操作dom
-    this.scroll = new BScroll(this.$refs.wrapper)
-  },
   created (letter) {
     this.bus.$on('change', letter => {
       this.letter = letter
@@ -50,6 +51,25 @@ export default {
       // console.log(this.scroll)
       this.scroll.scrollToElement(element)
     })
+  },
+  mounted () {
+    // 把scroll这个对象挂载到当前组件上,只有在mounted阶段才能操作dom
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        click: true
+      })
+    })
+  },
+  computed: {
+    city () {
+      return this.$store.state.city
+    }
+  },
+  methods: {
+    handleCity (city) {
+      this.$store.dispatch('changeCity', city)
+      this.$router.push('/')
+    }
   }
 }
 </script>

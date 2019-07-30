@@ -14,17 +14,12 @@
 <script>
 export default {
   props: ['iconList'],
-  data () {
-    return {
-      list: []
-    }
-  },
   computed: {
     pages () {
       // 多页优化,一页只能放8个
       // console.log(this.iconList)
       const pages = []
-      this.list.map((item, index) => {
+      this.iconList.map((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -32,11 +27,6 @@ export default {
         pages[page].push(item)
       })
       return pages
-    }
-  },
-  watch: {
-    iconList (val) {
-      this.list = val
     }
   }
 }
