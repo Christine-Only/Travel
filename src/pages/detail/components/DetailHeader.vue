@@ -1,80 +1,83 @@
 <template>
-  <div class="detail-banner" @click="handleGallary">
-    <img
-      class="banner-img"
-      src="http://img1.qunarzz.com/sight/p0/1607/7c/7cda8b6782dabd80b4.img.jpg_600x330_8572a930.jpg"
-      alt
-    />
-    <div class="banner-info">
-      <div class="banner-title">上海迪士尼乐园</div>
-      <div class="banner-number">
-        <span class="iconfont banner-icon">&#xe698;</span>39
-      </div>
+  <div class="detail-header">
+    <router-link to="/" class="header-back" v-show="shouHeader">
+      <span class="iconfont back-icon">&#xe624;</span>
+    </router-link>
+    <div class="header-title" v-show="!shouHeader" :style="{opacity: opacity}">
+      <router-link to="/">
+        <div class="header-left">
+          <span class="iconfont header-left-back">&#xe624;</span>
+        </div>
+      </router-link>景点详情
     </div>
-    <common-gallary v-show="showGallary"></common-gallary>
   </div>
 </template>
 
 <script>
-import CommonGallary from 'common/gallary/Gallary'
 export default {
-  name: 'DetailHeader',
-  components: {
-    CommonGallary
-  },
-  computed: {
-    showGallary () {
-      return this.$store.state.flag
+  data () {
+    return {
+      shouHeader: true,
+      opacity: 0
     }
   },
+  activated () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
   methods: {
-    handleGallary () {
-      this.$store.commit('changeFlag')
+    handleScroll () {
+      const top = document.documentElement.scrollTop
+      if (top > 60) {
+        let opacity = top / 140
+        opacity = opacity > 1 ? 1 : opacity
+        this.opacity = opacity
+        this.shouHeader = false
+      } else {
+        this.shouHeader = true
+      }
     }
   }
 }
 </script>
 
-<style lang="stylus" scoped >
-.detail-banner {
-  overflow: hidden;
-  height: 0;
-  padding-bottom: 55%;
-  position: relative;
+<style lang="stylus" scoped>
+@import '~styles/varibles.styl';
 
-  .banner-img {
-    width: 100%;
-  }
+.header-back {
+  width: 0.8rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  position: absolute;
+  left: 0.2rem;
+  top: 0.2rem;
+  text-align: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 0.3rem;
+  color: #fff;
+}
 
-  .banner-info {
-    display: flex;
+.header-title {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: $headerHeight;
+  line-height: $headerHeight;
+  background-color: $bgColor;
+  color: #fff;
+  text-align: center;
+  font-size: 0.32rem;
+
+  .header-left {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    line-height: 0.6rem;
+    width: 0.64rem;
     color: #fff;
-    background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 
-    .banner-title {
-      flex: 1;
-      font-size: 0.32rem;
-      padding: 0 0.2rem;
-    }
-
-    .banner-number {
-      height: 0.32rem;
-      line-height: 0.32rem;
-      margin-top: 0.1rem;
-      padding: 0 0.32rem;
-      border-radius: 0.2rem;
-      background: rgba(0, 0, 0, 0.8);
-      font-size: 0.24rem;
-
-      .banner-icon {
-        font-size: 0.24rem;
-        margin-right: 0.1rem;
-      }
+    .header-left-back {
+      font-size: 0.4rem;
+      display: block;
+      text-align: center;
     }
   }
 }
