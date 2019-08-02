@@ -34,9 +34,9 @@ export default {
       const res = await this.axios.get('/api/city.json')
       const {
         status,
-        data: { ret, data }
+        data: { data }
       } = res
-      if (status === 200 && ret) {
+      if (status === 200) {
         this.cities = data.cities
         this.hotCities = data.hotCities
       }

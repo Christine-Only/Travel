@@ -1,14 +1,22 @@
 <template>
   <div class="recomend">
     <div class="title">热门推荐</div>
-    <div class="items border-bottom" v-for="item in recommendList" :key="item.id">
-      <img :src="item.imgUrl" />
-      <div class="item">
-        <p class="item-title one-cut">{{item.title}}</p>
-        <p class="item-info one-cut">{{item.desc}}</p>
-        <button>查看详情</button>
-      </div>
-    </div>
+    <ul>
+      <router-link
+        tag="li"
+        class="items border-bottom"
+        v-for="item in recommendList"
+        :key="item.id"
+        :to="'/detail/' + item.id"
+      >
+        <img :src="item.imgUrl" />
+        <div class="item">
+          <p class="item-title one-cut">{{item.title}}</p>
+          <p class="item-info one-cut">{{item.desc}}</p>
+          <button>查看详情</button>
+        </div>
+      </router-link>
+    </ul>
   </div>
 </template>
 
@@ -16,7 +24,13 @@
 export default {
   name: 'HomeRecomend',
   data () {
-    return {}
+    return {
+      bannerImg: '',
+      categoryList: [],
+      gallaryImgs: [],
+      sightName: [],
+      details: {}
+    }
   },
   props: ['recommendList']
 }

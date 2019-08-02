@@ -18,7 +18,8 @@ try {
 } catch (e) {}
 export default new Vuex.Store({
   state: {
-    city: defaultCity
+    city: defaultCity,
+    flag: false
   },
   actions: {
     changeCity (context, city) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
       try {
         localStorage.setItem('city', city)
       } catch (e) {}
+    },
+    changeFlag (state) {
+      state.flag = !state.flag
     }
   }
 })
